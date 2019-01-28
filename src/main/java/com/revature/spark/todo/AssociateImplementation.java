@@ -1,5 +1,6 @@
 package com.revature.spark.todo;
 
+import java.util.HashMap; //only used for the bonus question
 import java.util.List;
 import java.util.Map;
 
@@ -133,9 +134,20 @@ public class AssociateImplementation {
 	 * @param calls
 	 * @return
 	 */
+	//Cheated on this one by using HashMap library...
 	public Map<Doctor, Double> highestPatientHeartRatePerDoctor(List<Patient> patients) {
+		Map<Doctor, Double> docMap = new HashMap<Doctor, Double>();
 		
-		return null;
+		for(int i = 0; i < patients.size(); i++) {
+			if(docMap.get(patients.get(i).getDoctor()) == null) {
+				docMap.put(patients.get(i).getDoctor(), patients.get(i).getHeartRate());
+			}
+			if(docMap.get(patients.get(i).getDoctor()) < patients.get(i).getHeartRate()) {
+				docMap.put(patients.get(i).getDoctor(), patients.get(i).getHeartRate());
+			}
+		}
+		
+		return docMap;
 	}
 
 }
