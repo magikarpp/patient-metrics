@@ -86,17 +86,8 @@ public class AssociateImplementation {
 			arrayList[i] = patients.get(i).getHeartRate();
 		}
 		
-		System.out.println("Unordered List: ");
-		for(int i = 0; i < patients.size(); i++) {
-			System.out.println(arrayList[i]);
-		}
-		
 		bubbleSort(arrayList);
 		reverse(arrayList);
-		System.out.println("Ordered List: ");
-		for(int i = 0; i < patients.size(); i++) {
-			System.out.println(arrayList[i]);
-		}
 
 		if(patients.size()%2 == 0) {
 			result = (arrayList[(int) Math.floor(patients.size()/2 - 1)] + arrayList[(int) Math.ceil(patients.size()/2)])/2;
