@@ -85,7 +85,7 @@ public class PatientMetricsApplicationTests {
 	@Test
 	public void medianTest() {
 		// check even length
-		double median = 3.675;
+		double median = 3.675;	
 		double testMedian = service.median(patients);
 		assertEquals(median, testMedian, precision);
 
