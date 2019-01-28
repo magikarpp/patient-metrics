@@ -80,7 +80,7 @@ public class AssociateImplementation {
 	 */
 	
 	public Double median(List<Patient> patients) {
-		double arrayList[] = new double[10];
+		double arrayList[] = new double[100]; //assuming the amount of patients in the database does not exceed 100.
 		double result;
 		for(int i = 0; i < patients.size(); i++) {
 			arrayList[i] = patients.get(i).getHeartRate();
