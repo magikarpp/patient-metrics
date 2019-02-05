@@ -134,7 +134,7 @@ public class AssociateImplementation {
 	 * @param calls
 	 * @return
 	 */
-	//Cheated on this one by using HashMap library...
+
 	public Map<Doctor, Double> highestPatientHeartRatePerDoctor(List<Patient> patients) {
 		Map<Doctor, Double> docMap = new HashMap<Doctor, Double>();
 		
