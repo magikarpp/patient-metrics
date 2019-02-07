@@ -9,12 +9,9 @@ let patient = "/patient";
 let doctorData = "/doctor/all";
 let doctorTop = "/doctor/all/top";
 
-// window.location.reload();
-
 // On DOM Load
 document.addEventListener("DOMContentLoaded", pageRefresh);
 // Create EventListeners
-document.getElementById("refresh-button").addEventListener("click", pageRefresh);
 document.getElementById("patient-update-button").addEventListener("click", createPatient);	
 document.getElementById("patient-update-button").addEventListener("click", updatePatient);
 document.getElementById("patient-delete-button").addEventListener("click", deletePatient);
@@ -90,7 +87,7 @@ function grabDoctors(){
 	sendAjaxGet(doctorData, displayDoctors);
 }
 
-// 1 more step to grab top heartRate for all doctors: addDoctorTop().
+// 1 more step to grab top heartRate for all doctors: addDoctorTop()
 function displayDoctors(xhr){
 	let data = JSON.parse(xhr.response);
 	sendAjaxGet2(doctorTop, addDoctorTop, data);
@@ -135,13 +132,14 @@ function addDoctor(id, first, last, high){
 	document.getElementById("dbody").appendChild(row);
 }
 
-// Invoked when patient update button is clicked.
+// Invoked when patient update button is clicked and user id does not exist.
 function createPatient(){
 	// getDoctorBy: Id
 	getDoctorByX(createNewPatient, document.getElementById("patient-update-doctor").value);
 }
 
-// After getDoctorById, add that doctor to our newPatient Object and POST newPatient.
+// After getDoctorById, add that doctor to our newPatient Object.
+// POST newPatient to database.
 function createNewPatient(xhr, info){
 	let data = JSON.parse(xhr.response);
 	let id = document.getElementById("patient-update-id").value;
@@ -174,6 +172,7 @@ function addNewPatient(newPatient){
 	let last = newPatient.lastName;
 	let doctorId = newPatient.doctor.id;
 	addPatient(id, first, last, heart, doctorId);
+	pageRefresh();
 }
 
 // Add patients directly to table.
@@ -200,7 +199,7 @@ function addPatient(id, first, last, heart, doctor){
 	document.getElementById("pbody").appendChild(row);
 }
 
-// Invoked when patient update button is clicked.
+// Invoked when patient update button is clicked and user id already exists.
 function updatePatient(){
 	// getPatientBy: Id
 	getPatientByX(updatePatientInfo, document.getElementById("patient-update-id").value);
@@ -261,13 +260,12 @@ function deletePatientInfo(xhr, pid){
 			delPatient = data[i];
 		}
 	}
-	sendAjaxDelete(patient, doNothing, delPatient);
+	sendAjaxDelete(patient, pageRefresh, delPatient);
 }
 
 // HELPER FUNCTIONS:
 // Object.size: returns size of Object.
 // removeTableRows: removes all rows of table.
-// doNothing: literally does nothing.
 Object.size = function(obj) {
     var size = 0, key;
     for (key in obj) {
@@ -289,10 +287,6 @@ function removeTableRows(tableType){
 	for (x = tableRows.length - 1; x > 0; x--) {
 	   table.removeChild(tableRows[x]);
 	}
-}
-
-function doNothing(xhr){
-	
 }
 
 // AJAX GET call, without information.
@@ -329,8 +323,6 @@ function sendAjaxPost(url, callback, data){
     xhr.onreadystatechange = function(){
         if(this.readyState === 4 && this.status === 200){
             callback(data);
-        }else {
-        	console.log(xhr.response);
         }
     }
     xhr.setRequestHeader("content-type", "application/json");
@@ -347,8 +339,6 @@ function sendAjaxPut(url, callback, data){
     xhr.onreadystatechange = function(){
         if(this.readyState === 4 && this.status === 200){
             callback(this);
-        }else {
-        	console.log(xhr.response);
         }
     }
     xhr.setRequestHeader("content-type", "application/json");
@@ -365,8 +355,6 @@ function sendAjaxDelete(url, callback, data){
     xhr.onreadystatechange = function(){
         if(this.readyState === 4 && this.status === 200){
             callback(this);
-        }else {
-        	console.log(xhr.response);
         }
     }
     xhr.setRequestHeader("content-type", "application/json");
