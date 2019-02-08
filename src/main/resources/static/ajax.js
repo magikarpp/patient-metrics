@@ -12,7 +12,7 @@ let doctorTop = "/doctor/all/top";
 // On DOM Load
 document.addEventListener("DOMContentLoaded", pageRefresh);
 // Create EventListeners
-document.getElementById("patient-update-button").addEventListener("click", createPatient);	
+document.getElementById("patient-create-button").addEventListener("click", createPatient);
 document.getElementById("patient-update-button").addEventListener("click", updatePatient);
 document.getElementById("patient-delete-button").addEventListener("click", deletePatient);
 
@@ -111,10 +111,10 @@ function createNewPatient(xhr, info){
 		"heartRate": heart,
 		"doctor": doctor
 	}
-	console.log("Patient " + newPatient.firstName + " has been added.");
 	
 	// After POST-ing newPatient, add newPatient to the patient table.
 	sendAjaxPost(patient, addNewPatient, newPatient);
+	restartPage();
 }
 
 // Grab specific information from newPatient to use as parameters for addPatient function.
@@ -194,6 +194,7 @@ function putPatient(xhr, uPatient){
 		}
 	}
 	sendAjaxPut(patient, doNothing, uPatient);
+	restartPage();
 }
 
 // Invoked when deletePatient button is pressed.
@@ -212,6 +213,7 @@ function deletePatientInfo(xhr, pid){
 		}
 	}
 	sendAjaxDelete(patient, doNothing, delPatient);
+	restartPage();
 }
 
 //1) Remove all rows from doctor table, 2) grab all doctors from database and add to table.
@@ -268,6 +270,7 @@ function addDoctor(id, first, last, high){
 // HELPER FUNCTIONS:
 // Object.size: returns size of Object.
 // removeTableRows: removes all rows of table.
+// restartPage: waits 5ms due to ASYNC. :(
 // doNothing: literally do nothing.
 Object.size = function(obj) {
     var size = 0, key;
@@ -276,6 +279,13 @@ Object.size = function(obj) {
     }
     return size;
 };
+
+const restartPage = () => {
+	setTimeout(function () {
+		window.location.reload(true)
+		console.log("Timeout is working");
+	}, 5)
+}
 
 function removeTableRows(tableType){
 	var table;
