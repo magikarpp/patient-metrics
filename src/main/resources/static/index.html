@@ -50,26 +50,30 @@
 				</div>
 				<button type="button" class="btn" data-toggle="collapse" data-target="#patient-update-info">Create/Update Patient</button>
 				<div id="patient-update-info" class="collapse">
-					<label for="patient-update-id">Patient ID:*</label>
-	      			<input type="text" id="patient-update-id" placeholder="Enter Patient ID" name="pid">
-	      			<label for="patient-update-first"> First Name:</label>
-	      			<input type="text" id="patient-update-first" placeholder="Enter First Name" name="pfirst">	
-	      			<label for="patient-update-last"> Last Name:</label>
-	      			<input type="text" id="patient-update-last" placeholder="Enter Last Name" name="plast">
-	      			<label for="patient-update-heart"> Heart Rate:</label>
-	      			<input type="text" id="patient-update-heart" placeholder="Enter Heart Rate" name="pheart">
-	      			<label for="patient-update-doctor"> Doctor:</label>
-	      			<input type="text" id="patient-update-doctor" placeholder="Enter Doctor's ID" name="pdoctor">
-	      			<button id="patient-update-button">submit</button>
-	      			<span id="patient-update-error"></span>
+					<form class="form-group">
+						<label for="patient-update-id">Patient ID:*</label>
+		      			<input type="text" id="patient-update-id" placeholder="Enter Patient ID" name="pid">
+		      			<label for="patient-update-first"> First Name:</label>
+		      			<input type="text" id="patient-update-first" placeholder="Enter First Name" name="pfirst">	
+		      			<label for="patient-update-last"> Last Name:</label>
+		      			<input type="text" id="patient-update-last" placeholder="Enter Last Name" name="plast">
+		      			<label for="patient-update-heart"> Heart Rate:</label>
+		      			<input type="text" id="patient-update-heart" placeholder="Enter Heart Rate" name="pheart">
+		      			<label for="patient-update-doctor"> Doctor:</label>
+		      			<input type="text" id="patient-update-doctor" placeholder="Enter Doctor's ID" name="pdoctor">
+					</form>
+					<button id="patient-update-button" class="btn btn-outline-primary">submit</button>
+					<span id="patient-update-error"></span>
 				</div>
 				<br>
 				<br>
 				<button type="button" class="btn" data-toggle="collapse" data-target="#patient-delete" id="patient-update">Delete Patient</button>
 				<div id="patient-delete" class="collapse">
-					<label for="patient-delete-id">Patient ID:*</label>
-	      			<input type="text" id="patient-delete-id" placeholder="Enter Patient ID" name="pid">
-	      			<button id="patient-delete-button">submit</button>
+					<form class="form-group">
+						<label for="patient-delete-id">Patient ID:*</label>
+		      			<input type="text" id="patient-delete-id" placeholder="Enter Patient ID" name="pid">
+	      			</form>
+	      			<button id="patient-delete-button" class="btn btn-outline-primary">submit</button>
 	      			<span id="patient-delete-error"></span>
 				</div>
 				<br>
