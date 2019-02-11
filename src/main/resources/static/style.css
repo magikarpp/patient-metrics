@@ -1,0 +1,15 @@
+.header {
+	height: 250px;
+	background-image: url("https://proaktis.org/wp-content/uploads/2016/04/markets-header-hospital.jpg");
+	background-size: cover;
+}
+
+#header-text {
+	position: relative;
+	top: 100px;
+}
+
+.navbar {
+	position: relative;
+	top: 140px;
+}

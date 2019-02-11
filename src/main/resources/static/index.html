@@ -4,6 +4,8 @@
 	    <title>Patients & Doctor Database</title>
 	
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    
+	    <link rel="stylesheet" href="style.css">
 	    <!-- BootStrap CDN -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	        crossorigin="anonymous">
@@ -15,7 +17,23 @@
 	        crossorigin="anonymous"></script>
 	</head>
 	<body>
-		<h1 class="text-center">Hospital Database</h1>
+	
+		<div class="header">
+			<h1 class="text-center" id="header-text">Hospital Database</h1>
+			<div class="container">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="index.html">Patients <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" href="doctors.html">Doctors</a>
+				     	</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		
 		<hr>
 		<div class="container">
 			<div class="patient-table">
@@ -74,28 +92,12 @@
 						<label for="patient-delete-id">Patient ID:*</label>
 		      			<input type="text" id="patient-delete-id" placeholder="Enter Patient ID" name="pid">
 	      			</form>
-	      			<button id="patient-delete-button" class="btn btn-outline-primary">submit</button>
+	      			<button id="patient-delete-button" class="btn btn-outline-primary">Delete</button>
 	      			<span id="patient-delete-error"></span>
 				</div>
 				<br>
 				<br>
 			</div>
-			<div class="doctor-table">
-				<h2>Doctor Table</h2>
-				<table class="table">
-					<thead>
-				      <tr>
-				        <th>Doctor ID</th>
-				        <th>First Name</th>
-				        <th>Last Name</th>
-				        <th>Highest HR</th>
-				      </tr>
-				    </thead>
-				    <tbody id="dbody">
-				    </tbody>
-				</table>
-			</div>
-		</div>
 		
 		<script src="ajax.js"></script>
 	</body>

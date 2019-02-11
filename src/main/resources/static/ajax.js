@@ -12,9 +12,11 @@ let doctorTop = "/doctor/all/top";
 // On DOM Load
 document.addEventListener("DOMContentLoaded", pageRefresh);
 // Create EventListeners
-document.getElementById("patient-create-button").addEventListener("click", createPatient);
-document.getElementById("patient-update-button").addEventListener("click", updatePatient);
-document.getElementById("patient-delete-button").addEventListener("click", deletePatient);
+if(window.location.pathname == "index.html"){
+	document.getElementById("patient-create-button").addEventListener("click", createPatient);
+	document.getElementById("patient-update-button").addEventListener("click", updatePatient);
+	document.getElementById("patient-delete-button").addEventListener("click", deletePatient);
+}
 
 // Whenever the page needs to be refreshed do:
 function pageRefresh(){
@@ -23,7 +25,9 @@ function pageRefresh(){
 	// Calculate Avg, Max, Med, and Min.
 	grabPatients();
 	grabDoctors();
-	calculateValues();
+	if(window.location.pathname == "index.html"){
+		calculateValues();
+	}
 }
 
 // Calculate Values
@@ -289,6 +293,9 @@ const restartPage = () => {
 
 function removeTableRows(tableType){
 	var table;
+	if(table == null){
+		return;
+	}
 	if(tableType == "ptable"){
 		table = document.getElementById("pbody");
 	} else{
