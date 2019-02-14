@@ -11,46 +11,13 @@ let doctorTop = "/doctor/all/top";
 
 // On DOM Load
 document.addEventListener("DOMContentLoaded", pageRefresh);
-// Create EventListeners
-document.getElementById("patient-create-button").addEventListener("click", createPatient);
-document.getElementById("patient-update-button").addEventListener("click", updatePatient);
-document.getElementById("patient-delete-button").addEventListener("click", deletePatient);
 
 // Whenever the page needs to be refreshed do:
 function pageRefresh(){
-	// 1) Grab patients from database, 2) delete all rows from ptable, 3) then add all patients to table.
 	// 1) Grab doctor from database, 2) delete all rows from dtable, 3) then add all doctors to table.
-	// Calculate Avg, Max, Med, and Min.
-	grabPatients();
-	calculateValues();
-}
 
-// Calculate Values
-function calculateValues(){
-	sendAjaxGet(patientAvg, displayAvg);
-	sendAjaxGet(patientMax, displayMax);
-	sendAjaxGet(patientMed, displayMed);
-	sendAjaxGet(patientMin, displayMin);
-}
-function displayAvg(xhr){
-	let data = xhr.response;
-	let avg = document.getElementById("patient-info-avg");
-	avg.innerHTML = Math.round(data * 100) / 100;
-}
-function displayMax(xhr){
-	let data = xhr.response;
-	let max = document.getElementById("patient-info-max");
-	max.innerHTML = data;
-}
-function displayMed(xhr){
-	let data = xhr.response;
-	let med = document.getElementById("patient-info-med");
-	med.innerHTML = data;
-}
-function displayMin(xhr){
-	let data = xhr.response;
-	let min = document.getElementById("patient-info-min");
-	min.innerHTML = data;
+	grabDoctors();
+
 }
 
 // Get Patient by Info:
@@ -213,6 +180,57 @@ function deletePatientInfo(xhr, pid){
 	}
 	sendAjaxDelete(patient, doNothing, delPatient);
 	restartPage();
+}
+
+//1) Remove all rows from doctor table, 2) grab all doctors from database and add to table.
+function grabDoctors(){
+	removeTableRows("dtable");
+	sendAjaxGet(doctorData, displayDoctors);
+}
+
+// 1 more step to grab top heartRate for all doctors: addDoctorTop()
+function displayDoctors(xhr){
+	let data = JSON.parse(xhr.response);
+	sendAjaxGet2(doctorTop, addDoctorTop, data);
+}
+
+// Adds the highest heartRate of each doctor to themselves.
+// Use RegEx to parse through JSON response data for highest heartRate.
+function addDoctorTop(xhr, allDoc){
+	let data = JSON.parse(xhr.response);
+	// Find first digit in string and any digits directly following after.
+	var myRe = /^[^\d]*(\d+)/;
+	
+	for(j = 0; j < allDoc.length; j ++){
+		for(i = 0; i < Object.size(data); i++){
+			var idOfDoc = myRe.exec(Object.entries(data)[i][0])[1];
+			
+			if(idOfDoc == allDoc[j].id){
+				addDoctor(allDoc[j].id, allDoc[j].firstName, allDoc[j].lastName, Object.entries(data)[i][1]);
+			}
+		}
+	}
+}
+
+// Add doctor to table.
+function addDoctor(id, first, last, high){
+	let row = document.createElement("tr");
+	let cell0 = document.createElement("td");
+    let cell1 = document.createElement("td");
+    let cell2 = document.createElement("td");
+    let cell3 = document.createElement("td");
+    
+    row.appendChild(cell0);
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+    row.appendChild(cell3);
+	
+	cell0.innerHTML = id;
+	cell1.innerHTML = first;
+	cell2.innerHTML = last;
+	cell3.innerHTML = high;
+	
+	document.getElementById("dbody").appendChild(row);
 }
 
 // HELPER FUNCTIONS:
